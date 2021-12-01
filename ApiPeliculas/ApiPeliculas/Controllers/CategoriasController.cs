@@ -72,7 +72,46 @@ namespace ApiPeliculas.Controllers
                 return StatusCode(500, ModelState);
             }
 
-            return Ok();
+            return CreatedAtRoute("GetCategoria", new { categoriaId = categoria.Id }, categoria );
+        }
+
+        [HttpPatch("{categoriaId:int}", Name = "UpdateCategoria")]
+        public ActionResult UpdateCategoria(int categoriaId, CategoriaDTO categoriaDTO)
+        {
+            if(categoriaDTO == null || categoriaDTO.Id != categoriaId)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var categoria = _mapper.Map<Categoria>(categoriaDTO);
+
+            if (!_icategoriaRepository.UpdateCategoria(categoria)) {
+                ModelState.AddModelError("", $"Algo salió mal actualizando la categoría ${categoria.Nombre}");
+                return StatusCode(500, ModelState);
+            }
+
+            return NoContent();
+
+        }
+
+        [HttpDelete("{categoriaId:int}")]
+        public ActionResult DeleteCategoria(int categoriaId)
+        {
+            if (!_icategoriaRepository.CategoriaExists(categoriaId))
+            {
+                return NotFound();
+            }
+
+            var categoria = _icategoriaRepository.GetCategoria(categoriaId);
+
+            if (!_icategoriaRepository.DeleteCategoria(categoria))
+            {
+                ModelState.AddModelError("", $"Algo salió mal borrando la categoria ${categoria.Nombre}");
+                return StatusCode(500, ModelState);
+            }
+
+            return NoContent();
+
         }
     }
 }

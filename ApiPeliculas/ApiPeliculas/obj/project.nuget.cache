@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Pu56th6G86VzTwff7FYn6Djwx9EJXxr42w2mt3LJ3JQbcnDk20LnVeUne0dtMMM5kXy/QnzNudbsLKtitEMJLQ==",
+  "dgSpecHash": "QLe0lJInN4iIq6ARRXkk7yDAWqoq9icMsK9hnbo8GdkaiyPiilewivHyMfms3tE1zOj09ZY61PlL9Mv/HoKg8Q==",
   "success": true,
-  "projectFilePath": "C:\\Cursos\\Udemy - Master .NET Core API\\ApiPeliculas\\ApiPeliculas\\ApiPeliculas\\ApiPeliculas.csproj",
+  "projectFilePath": "C:\\Cursos\\Udemy - Master .NET Core API\\ApiPeliculas\\ApiPeliculas\\ApiPeliculas.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\karlo\\.nuget\\packages\\automapper\\9.0.0\\automapper.9.0.0.nupkg.sha512",
     "C:\\Users\\karlo\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\7.0.0\\automapper.extensions.microsoft.dependencyinjection.7.0.0.nupkg.sha512",
