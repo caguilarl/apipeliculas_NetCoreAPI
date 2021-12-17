@@ -28,12 +28,34 @@ namespace ApiPeliculas.Repository
 
         public Usuario LoginUsuario(string usuario, string contrasena)
         {
-            throw new NotImplementedException();
+            var user = _db.Usuarios.FirstOrDefault(x => x.UsuarioAcceso == usuario);
+
+            if(user == null)
+            {
+                return null;
+            }
+
+            if(!VerificarContrasena(contrasena,user.PasswordHash, user.PasswordSalt))
+            {
+                return null;
+            }
+
+            return user;
         }
 
-        public Usuario RegisterUsuario(string usuario, string contrasena)
+        public Usuario RegisterUsuario(Usuario usuario, string contrasena)
         {
-            throw new NotImplementedException();
+            byte[] passwordHash, passwordSalt;
+
+            CrearContrasena(contrasena, out passwordHash, out passwordSalt);
+
+            usuario.PasswordHash = passwordHash;
+            usuario.PasswordSalt = passwordSalt;
+
+            _db.Usuarios.Add(usuario);
+            Save();
+
+            return usuario;
         }
 
         public bool UsuarioExists(string usuarioAcceso)
@@ -45,5 +67,29 @@ namespace ApiPeliculas.Repository
         {
             return _db.SaveChanges() >= 0;   
         }
+
+        #region Helpers sin Interface
+        private bool VerificarContrasena(string contrasena, byte[] passwordHash, byte[] passwordSalt)
+        {
+            using (var hmac = new System.Security.Cryptography.HMACSHA512(passwordSalt)) 
+            {
+                var hashComputado = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(contrasena));
+
+                for(int i = 0; i < hashComputado.Length; i++)
+                {
+                    if (hashComputado[i] != passwordHash[i]) return false;
+                }
+            }
+
+            return true;
+        }
+
+        private void CrearContrasena(string contrasena, out byte[] passwordHash, out byte[] passwordSalt)
+        {
+            using var hmac = new System.Security.Cryptography.HMACSHA512();
+            passwordSalt = hmac.Key;
+            passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(contrasena));
+        }
+        #endregion
     }
 }

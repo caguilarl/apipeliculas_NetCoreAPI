@@ -11,7 +11,7 @@ namespace ApiPeliculas.Repository.IRepository
         ICollection<Usuario> GetUsuarios();
         Usuario GetUsuario(int usuarioId);
         bool UsuarioExists(string usuarioAcceso);
-        Usuario RegisterUsuario(string usuario, string contrasena);
+        Usuario RegisterUsuario(Usuario usuario, string contrasena);
         Usuario LoginUsuario(string usuario, string contrasena);
         bool Save();
 

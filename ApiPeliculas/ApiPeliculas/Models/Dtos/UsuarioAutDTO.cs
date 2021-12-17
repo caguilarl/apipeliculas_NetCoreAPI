@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ApiPeliculas.Models.Dtos
 {
-    public class UsuarioAut
+    public class UsuarioAutDTO
     {
         public int Id { get; set; }
         [Required(ErrorMessage = "El usuario es obligatorio" )]

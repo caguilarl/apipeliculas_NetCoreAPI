@@ -35,6 +35,7 @@ namespace ApiPeliculas
             //Repositorios
             services.AddScoped<ICategoriaRepository, CategoriaRepository>();
             services.AddScoped<IPeliculaRepository, PeliculaRepository>();
+            services.AddScoped<IUsuarioRepository, UsuarioRepository>();
             //Mappers
             services.AddAutoMapper(typeof(PeliculasMappers));
             
